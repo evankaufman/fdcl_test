@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Params -->
+  <param name="use_sim_time" value="true" />
+  <rosparam command="load" file="$(find voxel)/config/maps.yaml"          />
+  <rosparam command="load" file="$(find voxel)/config/exploration.yaml"   />
+  <rosparam command="load" file="$(find voxel)/config/depth_sensors.yaml" />
+
+  <!-- Sensor Data Conversion -->
+  <include file="$(find ogm_ae)/launch/filter_pcl_voxel_grid.launch" />
+  <include file="$(find ogm_ae)/launch/msg_conversions.launch">
+    <arg name="pcl_name" value="/camera/depth_registered/points"/>
+  </include>
+
+  <!-- Sensor Data Limit Range (Visualization) -->
+  <include file="$(find ogm_ae)/launch/gen_viz_pcl_msgs.launch">
+    <arg name="pcl_name" value="/camera/depth_registered/points"/>
+  </include>
+  <node pkg="ogm_ae" name="xtion_limited_conversion_to_world" type="sensor_conversion_node" output="screen">
+    <param name="topic_in"  value="/xtion_limited_range"             />
+    <param name="topic_out" value="/xtion_limited_range_world_frame" />
+    <param name="frame_out" value="/world"                           />
+  </node>
+ <node pkg="nodelet" type="nodelet" name="voxel_grid_limited" args="load pcl/VoxelGrid pcl_manager" output="screen">
+  <remap from="~input" to="/xtion_limited_range_world_frame" />
+  <rosparam>
+      filter_field_name: z
+      filter_limit_min: -0.5
+      filter_limit_max: 10
+      filter_limit_negative: False
+      leaf_size: 0.05
+  </rosparam>
+  <remap from="~output" to="/xtion_viz" />
+ </node>
+
+
+  <!-- Mapping -->
+  <node pkg="ogm_ae" name="probabilistic_occupancy_grid_mapping" type="probabilistic_occupancy_grid_mapping" output="screen"></node>
+  <!-- node pkg="entropy_based_exploration" name="generate_exploration_map" type="generate_exploration_map" output="screen"></node -->
+
+  <!-- Visualization -->
+  <!-- node pkg="rviz" type="rviz" name="rviz" args="-d $(find ogm_ae)/rviz/exploration_experiment_playback.rviz"/ -->
+  <!-- node pkg="ogm_ae" name="generate_3D_rviz_msgs" type="generate_3D_rviz_msgs" output="screen"/ -->
+
+
+  <param name="do_yaw_rotation" type="bool" value="false" />
+
+</launch>

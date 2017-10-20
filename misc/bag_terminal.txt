@@ -1,0 +1,4 @@
+rosbag record /CPLS_acceleration /CPLS_camera /CPLS_position /CPLS_velocity /camera/depth_registered/points /desired_cam_pose /desired_pose /scan /tf /vicon/Jetson/pose /Jetson/xc /Jetson/uav_states /DJK /info_gains_candidates /info_gains_distances_candidates /ogm_2D /cost_map -o bagname.bag
+
+
+

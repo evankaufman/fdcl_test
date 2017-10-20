@@ -1,0 +1,67 @@
+Mac:
+
+Mount shared server to a folder on your computer:
+
+
+mount_smbfs //evankaufman@titan.seas.gwu.edu/tlee_share/tlee_share ~/Desktop/ros_git
+
+
+You might need to add credentials for access to this folder (add more info here).
+
+
+For the first time, navigate to your desired folder and clone with:
+
+
+git clone /Users/evanthomaskaufman/Desktop/ros_git/ROS/git_repo .
+
+
+Then you can push and pull as long as the shared drive is mounted.
+
+Update 01/09/17: cannot clone on Mac, but can clone on Ubuntu
+
+
+Ubuntu:
+First, make sure you are on the GWU network. If you are not at GWU, then VPN into the network with openconnect. If not done before, install openconnect in a terminal:
+
+sudo apt-get update
+sudo apt-get install openconnect
+
+To VPN to GWU, write in a terminal
+
+sudo openconnect go.vpn.gwu.edu
+
+and enter your GWU (not SEAS) username and password when prompted. Leave this terminal open any time you want to push and pull. Using ctrl-c will quit openconnect.
+
+Next, make sure cifs utils is installed:
+
+sudo apt-get update
+sudo apt-get install cifs-utils
+
+Make a folder called ros_git on your desktop as a mount point. Then, edit /etc/fstab using nano to create a local directory where to want the shared drive:
+
+sudo nano /etc/fstab
+
+Add the following line to the end, replacing fdcl with the username of your local account, and updating USERNAME and PASSWORD with your seas credentials:
+
+//titan.seas.gwu.edu/tlee_share/tlee_share /home/fdcl/Desktop/ros_git cifs domain=seas.gwu.edu,username=USERNAME,password=PASSWORD,_netdev,iocharset=utf8,sec=ntlmv2,uid=fdcl 0 0
+
+Save this (ctrl-o) and exit nano (ctrl-x), then mount the new drive:
+
+sudo mount -a
+
+Then give your package a name, say "ogm_ae", in your catkin worspace, say "catkin_ws" (assuming your workspace was already made),
+
+cd ~/catkin_ws/src
+mkdir ogm_ae
+cd ogm_ae
+git clone ~/Desktop/ros_git/ROS/git_repo .
+
+Now that the git repo is cloned, you can do git stuff.
+
+Any time you log on/off, make sure you are either at GWU or you VPN into the network (instructions above) and run
+
+sudo mount -a
+
+to ensure that the remote is accessible.
+
+

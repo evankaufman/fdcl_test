@@ -1,0 +1,41 @@
+Commands to run an experiment:
+
+  --
+
+  Open 3 terminals with the Jetson:
+    ssh ubuntu@192.168.1.216
+  using password "ubuntu".
+    Terminal 1: time sync & Xtion
+      . moca_setup.sh
+      sudo ntpdate -u 192.168.1.201
+      cd sandbox/
+      roslaunch openni2_driver.launch
+    Terminal 2: Hokuyo
+      . moca_setup.sh
+      rosrun urg_node urg_node _ip_address:="192.168.0.10"
+    Terminal 3:
+      . moca_setup.sh
+      roslaunch uav_geometric_controller moca_jetson.launch
+
+  --
+
+  Open 6 Terminals on the Base Station:
+    Terminal 1: roscore
+      roscore
+    Terminal 2: experiment
+      roslaunch voxel experiment.launch
+    Terminal 3: monitor
+      . anaconda.sh
+      source activate ros
+      rosrun uav_geometric_controller monitor.py
+    Terminal 4: bag
+      To record:
+        rosbag record /CPLS_acceleration /CPLS_camera /CPLS_position /CPLS_velocity /camera/depth_registered/points /desired_cam_pose /desired_pose /scan /tf /vicon/Jetson/pose /DJK /info_gains_candidates /info_gains_distances_candidates /ogm_2D -o bag_name.bag
+      To play:
+        rosbag play bag_name.bag --clock
+    Terminal 5: map
+      roslaunch voxel mapping_nrl.launch
+    Terminal 6: explore
+      . anaconda.sh
+      source activate ros
+      roslaunch voxel explore.launch

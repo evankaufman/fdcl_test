@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Default Param: don't explore yet-->
+  <param name="run_autonomous_exploration" value="false" />
+  <rosparam command="load" file="$(find voxel)/config/maps.yaml"          />
+  <rosparam command="load" file="$(find voxel)/config/exploration.yaml"   />
+  <rosparam command="load" file="$(find voxel)/config/depth_sensors.yaml" />
+
+  <!-- Entropy-Based Autonomous Exploration -->
+  <node pkg="entropy_based_exploration" name="entropy_based_autonomous_exploration" type="entropy_based_autonomous_exploration" output="screen"></node>
+
+  <!-- ROS geometry_msgs to Controller Custom Messages -->
+  <node pkg="entropy_based_exploration" name="exploration_to_trajectory" type="exploration_to_trajectory.py" output="screen"></node>
+
+</launch>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <!-- Parameters Specific for Experiment -->
+  <param name="use_sim_time" value="false" />
+  <param name="run_autonomous_exploration"  value="false" />
+  <param name="exploration/simulate_gazebo" value="false" />
+  <param name="exploration/robot_frame"     value="Jetson" />
+
+  <!-- TFs -->
+  <include file="$(find master_map_explore_control)/launch/tfs_jetson_nrl.launch" />
+  <include file="$(find master_map_explore_control)/launch/tfs_openni2.launch" />
+
+  <!-- Sensors -->
+  <include file="$(find master_map_explore_control)/launch/xtion_rectify.launch" />
+  <include file="$(find mocap_vicon)/launch/vicon.launch"/>
+
+  <!-- Load Parameters -->
+  <rosparam command="load" file="$(find voxel)/config/maps.yaml"          />
+  <rosparam command="load" file="$(find voxel)/config/exploration.yaml"   />
+  <rosparam command="load" file="$(find voxel)/config/depth_sensors.yaml" />
+
+  <!-- Reduced Map Generation -->
+  <node pkg="entropy_based_exploration" name="generate_exploration_map" type="generate_exploration_map" output="screen"></node>
+
+  <!-- Desired Controller Trajectory Messages -->
+  <node pkg="ogm_ae" name="paths_to_cmd" type="paths_to_cmd" output="screen"/>
+
+</launch>
