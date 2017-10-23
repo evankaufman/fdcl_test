@@ -6,7 +6,7 @@
   <rosparam command="load" file="$(find ogm_ae)/config/maps_gazebo.yaml"   />
   <rosparam command="load" file="$(find ogm_ae)/config/exploration.yaml"   />
   <rosparam command="load" file="$(find ogm_ae)/config/depth_sensors.yaml" />
-  <param name="exploration/robot_frame"     value="base_link" />
+  <param name="exploration/robot_frame"     value="quadrotor1/base_link" />
 
   <!-- Sensor Data Conversion -->
   <include file="$(find ogm_ae)/launch/filter_pcl_voxel_grid.launch" />

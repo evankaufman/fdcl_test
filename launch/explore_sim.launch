@@ -10,6 +10,6 @@
   <param name="run_autonomous_exploration"  value="true"      />
 
   <!-- Entropy-Based Autonomous Exploration -->
-  <node pkg="entropy_based_exploration" name="entropy_based_autonomous_exploration" type="entropy_based_autonomous_exploration" output="screen"></node>
+  <node pkg="ogm_ae" name="entropy_based_autonomous_exploration" type="entropy_based_autonomous_exploration" output="screen"></node>
 
 </launch>

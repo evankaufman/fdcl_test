@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<launch>
+
+  <node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/gazebo_2D_comboMap.rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz_cell" args="-d $(find ogm_ae)/rviz/gazebo_3Dcells.rviz"/>
+
+</launch>
