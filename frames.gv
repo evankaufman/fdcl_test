@@ -1,15 +1,15 @@
 digraph G {
-"camera_link" -> "camera_depth_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
-"base_link" -> "camera_link"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
-"camera_depth_frame" -> "camera_depth_optical_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
-"base_stabilized" -> "base_link"[label="Broadcaster: /ground_truth_to_tf_fdcl_1294_9119137567730966097\nAverage rate: 527.062 Hz\nMost recent transform: 782.473 ( 0.007 sec old)\nBuffer length: 5.007 sec\n"];
-"camera_link" -> "camera_rgb_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
-"camera_rgb_frame" -> "camera_rgb_optical_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
-"base_link" -> "laser"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
-"world" -> "base_footprint"[label="Broadcaster: /ground_truth_to_tf_fdcl_1294_9119137567730966097\nAverage rate: 527.062 Hz\nMost recent transform: 782.473 ( 0.007 sec old)\nBuffer length: 5.007 sec\n"];
-"base_footprint" -> "base_stabilized"[label="Broadcaster: /ground_truth_to_tf_fdcl_1294_9119137567730966097\nAverage rate: 527.062 Hz\nMost recent transform: 782.473 ( 0.007 sec old)\nBuffer length: 5.007 sec\n"];
+"quadrotor1/camera_link" -> "quadrotor1/camera_depth_frame"[label="Broadcaster: /quadrotor1/robot_state_publisher_fdcl_30332_7104359157935434304\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 789.317 sec old)\nBuffer length: 0.000 sec\n"];
+"quadrotor1/base_link" -> "quadrotor1/camera_link"[label="Broadcaster: /quadrotor1/robot_state_publisher_fdcl_30332_7104359157935434304\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 789.317 sec old)\nBuffer length: 0.000 sec\n"];
+"quadrotor1/camera_depth_frame" -> "quadrotor1/camera_depth_optical_frame"[label="Broadcaster: /quadrotor1/robot_state_publisher_fdcl_30332_7104359157935434304\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 789.317 sec old)\nBuffer length: 0.000 sec\n"];
+"quadrotor1/base_stabilized" -> "quadrotor1/base_link"[label="Broadcaster: /quadrotor1/ground_truth_to_tf_fdcl_30332_2100126800646459274\nAverage rate: 418.226 Hz\nMost recent transform: 789.290 ( 0.027 sec old)\nBuffer length: 4.971 sec\n"];
+"quadrotor1/camera_link" -> "quadrotor1/camera_rgb_frame"[label="Broadcaster: /quadrotor1/robot_state_publisher_fdcl_30332_7104359157935434304\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 789.317 sec old)\nBuffer length: 0.000 sec\n"];
+"quadrotor1/camera_rgb_frame" -> "quadrotor1/camera_rgb_optical_frame"[label="Broadcaster: /quadrotor1/robot_state_publisher_fdcl_30332_7104359157935434304\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 789.317 sec old)\nBuffer length: 0.000 sec\n"];
+"quadrotor1/base_link" -> "quadrotor1/laser"[label="Broadcaster: /quadrotor1/robot_state_publisher_fdcl_30332_7104359157935434304\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 789.317 sec old)\nBuffer length: 0.000 sec\n"];
+"world" -> "quadrotor1/base_footprint"[label="Broadcaster: /quadrotor1/ground_truth_to_tf_fdcl_30332_2100126800646459274\nAverage rate: 418.226 Hz\nMost recent transform: 789.290 ( 0.027 sec old)\nBuffer length: 4.971 sec\n"];
+"quadrotor1/base_footprint" -> "quadrotor1/base_stabilized"[label="Broadcaster: /quadrotor1/ground_truth_to_tf_fdcl_30332_2100126800646459274\nAverage rate: 418.226 Hz\nMost recent transform: 789.290 ( 0.027 sec old)\nBuffer length: 4.971 sec\n"];
 edge [style=invis];
  subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
-"Recorded at time: 782.480"[ shape=plaintext ] ;
+"Recorded at time: 789.317"[ shape=plaintext ] ;
  }->"world";
 }
