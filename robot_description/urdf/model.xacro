@@ -148,10 +148,10 @@
 
           </link>
 
-    <include>
+    <xacro:include>
       <uri>model://hokuyo</uri>
       <pose>0.0 0 2.03 0 0 0</pose>
-    </include>
+    </xacro:include>
     <joint name="hokuyo_joint" type="revolute">
       <child>hokuyo::link</child>
       <parent>quadrotor</parent>

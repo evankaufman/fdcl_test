@@ -1,0 +1,15 @@
+digraph G {
+"camera_link" -> "camera_depth_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
+"base_link" -> "camera_link"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
+"camera_depth_frame" -> "camera_depth_optical_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
+"base_stabilized" -> "base_link"[label="Broadcaster: /ground_truth_to_tf_fdcl_1294_9119137567730966097\nAverage rate: 527.062 Hz\nMost recent transform: 782.473 ( 0.007 sec old)\nBuffer length: 5.007 sec\n"];
+"camera_link" -> "camera_rgb_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
+"camera_rgb_frame" -> "camera_rgb_optical_frame"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
+"base_link" -> "laser"[label="Broadcaster: /robot_state_publisher_fdcl_1294_3905587558651918445\nAverage rate: 10000.000 Hz\nMost recent transform: 0.000 ( 782.480 sec old)\nBuffer length: 0.000 sec\n"];
+"world" -> "base_footprint"[label="Broadcaster: /ground_truth_to_tf_fdcl_1294_9119137567730966097\nAverage rate: 527.062 Hz\nMost recent transform: 782.473 ( 0.007 sec old)\nBuffer length: 5.007 sec\n"];
+"base_footprint" -> "base_stabilized"[label="Broadcaster: /ground_truth_to_tf_fdcl_1294_9119137567730966097\nAverage rate: 527.062 Hz\nMost recent transform: 782.473 ( 0.007 sec old)\nBuffer length: 5.007 sec\n"];
+edge [style=invis];
+ subgraph cluster_legend { style=bold; color=black; label ="view_frames Result";
+"Recorded at time: 782.480"[ shape=plaintext ] ;
+ }->"world";
+}

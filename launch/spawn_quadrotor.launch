@@ -4,28 +4,18 @@
 
   <arg name="name" default=""/>
   <arg name="model" default=""/>
-  <arg name="controllers" default="
-    controller/position
-    controller/velocity
-    controller/attitude
-    "/>
-  <arg name="tf_prefix" default="$(arg name)"/>
-  <arg name="robot_state_publisher_name" default="$(arg tf_prefix)/robot_state_publisher"/>
-
-
-  <arg name="x" default="0.0"/>
-  <arg name="y" default="0.0"/>
-  <arg name="z" default="0.3"/>
-
+  <arg name="tf_prefix" default=""/>
+  <arg name="x" default="10.0"/>
+  <arg name="y" default="10.0"/>
+  <arg name="z" default="0.0"/>
   <arg name="use_ground_truth_for_tf" default="true" />
-  <arg name="use_ground_truth_for_control" default="true" />
-  <arg name="use_pose_estimation" if="$(arg use_ground_truth_for_control)" default="false"/>
-  <arg name="use_pose_estimation" unless="$(arg use_ground_truth_for_control)" default="true"/>
-
-  <arg name="world_frame" default="/world"/> <!-- This should actually be "/world". See https://github.com/ros-simulation/gazebo_ros_pkgs/pull/324 -->
+  <arg name="use_pose_estimation" default="false"/>
+  <arg name="world_frame" default="/world"/> 
   <arg name="base_link_frame" default="$(arg tf_prefix)/base_link"/>
 
+
   <!-- send the robot XML to param server -->
+  <!-- param name="robot_description" command="$(find xacro)/xacro.py '$(arg model)'" / -->
   <param name="robot_description" command="$(find xacro)/xacro '$(arg model)' base_link_frame:=$(arg base_link_frame) world_frame:=$(arg world_frame)" />
   <param name="tf_prefix" type="string" value="$(arg tf_prefix)"/> <!-- required for hector_pose_estimation and message_to_tf -->
   <!-- <param name="base_link_frame" type="string" value="$(arg base_link_frame)" />
@@ -51,11 +41,11 @@
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="$(anon spawn_robot)" pkg="gazebo_ros" type="spawn_model"
         args="-param robot_description
-           -urdf
-           -x $(arg x)
-           -y $(arg y)
-           -z $(arg z)
-           -model $(arg name)"
+              -urdf
+              -x $(arg x)
+              -y $(arg y)
+              -z $(arg z)
+              -model $(arg name)"
         respawn="false" output="screen"/>
 
 </launch>

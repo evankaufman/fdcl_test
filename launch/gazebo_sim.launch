@@ -20,10 +20,12 @@
   </include>
 
   <!-- Spawn simulated quadrotor uav -->
+
   <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
     <arg name="name" value="quadrotor1"/>
     <arg name="model" value="$(find fdcl_test)/robot_description/urdf/quad_with_laser_and_rgbd.xacro"/>
   </include>
+
   <!-- include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
     <arg name="name" value="quadrotor2"/>
     <arg name="model" value="$(find fdcl_test)/robot_description/urdf/quad_with_laser_and_rgbd.xacro"/>
