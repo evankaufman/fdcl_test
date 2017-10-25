@@ -6,19 +6,34 @@
   <rosparam command="load" file="$(find ogm_ae)/config/maps_gazebo.yaml"   />
   <rosparam command="load" file="$(find ogm_ae)/config/exploration.yaml"   />
   <rosparam command="load" file="$(find ogm_ae)/config/depth_sensors.yaml" />
-  <param name="exploration/robot_frame"     value="quadrotor1/base_link" />
 
-  <!-- Sensor Data Conversion -->
-  <include file="$(find ogm_ae)/launch/filter_pcl_voxel_grid.launch" />
-  <include file="$(find ogm_ae)/launch/msg_conversions.launch">
-    <arg name="pcl_name" value="/camera/depth/points"/>
-  </include>
+  <!-- Quadrotor 0 Sensor Data Conversion -->
 
-  <!-- Mapping -->
-  <node pkg="ogm_ae" name="probabilistic_occupancy_grid_mapping" type="probabilistic_occupancy_grid_mapping" output="screen"></node>
+    <!-- Hokuyo Laser Scan Convert to Hokuyo Point Cloud -->
+    <include file="$(find ogm_ae)/launch/lsr_to_pcl.launch">
+      <arg name="lsr_name_in"  value="quadrotor0/scan"         />
+      <arg name="lsr_name_out" value="quadrotor0/lsr_pcl_local"/>
+    </include>
 
-  <!-- Visualization -->
-  <node pkg="ogm_ae" name="generate_3D_rviz_msgs" type="generate_3D_rviz_msgs" output="screen"/>
+    <!-- Hokuyo Point Cloud to World Frame -->
+    <include file="$(find ogm_ae)/launch/pcl_change_frame.launch">
+      <arg name="pcl_name_in"  value="/quadrotor0/lsr_pcl_local"/>
+      <arg name="pcl_name_out" value="/quadrotor0/depth_lsr"    />
+      <arg name="frame_out"    value="/world"                   />
+    </include>
+
+    <!-- Xtion Point Cloud to World Frame -->
+    <include file="$(find ogm_ae)/launch/pcl_change_frame.launch">
+      <arg name="pcl_name_in"  value="/quadrotor0/camera/depth/points" />
+      <arg name="pcl_name_out" value="/quadrotor0/depth_pcl_unfiltered"/>
+      <arg name="frame_out"    value="/world"                          />
+    </include>
+
+    <!-- Xtion Point Cloud Filtered with Voxel Grid -->
+    <include file="$(find ogm_ae)/launch/filter_pcl_voxel_grid.launch">
+      <arg name="depth_pcl_unfiltered"  value="/quadrotor0/depth_pcl_unfiltered"/>
+      <arg name="depth_pcl_filtered"  value="/quadrotor0/depth_pcl_filtered"/>
+    </include>
 
   <!-- Initial Yaw Rototation -->
   <param name="do_yaw_rotation" type="bool" value="true" />

@@ -52,14 +52,14 @@
   </node -->
 
   <!-- Set Robot Model States -->
+  <node pkg="ogm_ae" name="paths_to_cmd_0" type="paths_to_cmd" output="screen">
+    <param name="model_name"   value="quadrotor0"                         />
+    <param name="robot_frame"  value="quadrotor0/base_link"               />
+    <param name="sensor_frame" value="quadrotor0/camera_rgb_optical_frame"/>
+  </node>
   <node pkg="ogm_ae" name="paths_to_cmd_1" type="paths_to_cmd" output="screen">
     <param name="model_name"   value="quadrotor1"                         />
     <param name="robot_frame"  value="quadrotor1/base_link"               />
     <param name="sensor_frame" value="quadrotor1/camera_rgb_optical_frame"/>
-  </node>
-  <node pkg="ogm_ae" name="paths_to_cmd_2" type="paths_to_cmd" output="screen">
-    <param name="model_name"   value="quadrotor2"                         />
-    <param name="robot_frame"  value="quadrotor2/base_link"               />
-    <param name="sensor_frame" value="quadrotor2/camera_rgb_optical_frame"/>
   </node>
 </launch>
