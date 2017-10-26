@@ -2,64 +2,87 @@
 
 <launch>
 
-  <!-- Load Parameters -->
-  <rosparam command="load" file="$(find ogm_ae)/config/maps_gazebo.yaml"   />
-  <rosparam command="load" file="$(find ogm_ae)/config/exploration.yaml"   />
-  <rosparam command="load" file="$(find ogm_ae)/config/depth_sensors.yaml" />
+  <!--
+    This launch file serves the following purposes:
+    1) Sets the number of robots & exploration strategy
+    2) Loads/reloads parameters
+    3) Starts the Gazebo simulated environment
+    4) Spawns robot(s)
+    5) Map conversions
+    6) Sets Gazebo robot model states
+  -->
 
-  <!-- Simulation Time True -->
-  <param name="use_sim_time" value="true" />
-  <param name="run_autonomous_exploration"  value="true"      />
-  <param name="exploration/simulate_gazebo" value="true"      />
+  <!-- 1) Set the Number of Quadrotors & Exploration Strategy-->
+  <arg   name="two_quadrotors" value="true"                             />
+  <param name="num_robots"     value="1" unless="$(arg two_quadrotors)" />
+  <param name="num_robots"     value="2" if    ="$(arg two_quadrotors)" />
+  <arg   name="two_exploration_maps"          value="false"                                             />
+  <param name="exploration/cell_comb_process" value="min_max"      unless="$(arg two_exploration_maps)" />
+  <param name="exploration/cell_comb_process" value="free_entropy" if    ="$(arg two_exploration_maps)" />
 
-  <!-- Start Gazebo with 'simple_world' Environment -->
-  <include file="$(find fdcl_test)/launch/start.launch">
-    <!-- arg name="world" value="worlds/empty.world"/ -->
-    <arg name="world" value="$(find fdcl_test)/worlds/lasr_no_quad.world"/>
+  <!-- 2) (Re)Load Parameters -->
+  <rosparam command="load" file="$(find ogm_ae)/config/robots.yaml"      />
+  <rosparam command="load" file="$(find ogm_ae)/config/maps_gazebo.yaml" />
+  <rosparam command="load" file="$(find ogm_ae)/config/exploration.yaml" />
+  <rosparam command="load" file="$(find ogm_ae)/config/sensors.yaml"     />
+  <param name="use_sim_time"                value="true" />
+  <param name="run_autonomous_exploration"  value="true" />
+  <param name="exploration/simulate_gazebo" value="true" />
+
+  <!-- 3) Start Gazebo with 'simple_world' Environment -->
+  <include file="$(find fdcl_test)/launch/start.launch" >
+    <arg name="world" value="$(find fdcl_test)/worlds/lasr_no_quad.world" />
   </include>
 
-  <!-- Spawn simulated quadrotor uavs -->
+  <!-- 4) Spawn Simulated Quadrotor UAVs -->
   <arg name="model" default="$(find fdcl_test)/robot_description/urdf/quad_with_laser_and_rgbd.xacro" />
-  <group ns="quadrotor0">
-  <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
-    <arg name="name" value="quadrotor0"/>
-    <arg name="model" value="$(arg model)"/>
-    <arg name="x" value="1"/>
-    <arg name="y" value="0"/>
-    <arg name="z" value="0.3"/>
-  </include>
+  <group ns="quadrotor0"                            >
+    <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
+      <arg name="name" value="quadrotor0"    />
+      <arg name="model" value="$(arg model)" />
+      <arg name="x" value="1"                />
+      <arg name="y" value="0"                />
+      <arg name="z" value="0.3"              />
+    </include>
   </group>
-  <group ns="quadrotor1">
-  <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
-    <arg name="name" value="quadrotor1"/>
-    <arg name="model" value="$(arg model)"/>
-    <arg name="x" value="-1"/>
-    <arg name="y" value="0"/>
-    <arg name="z" value="0.3"/>
-  </include>
+  <group if="$(arg two_quadrotors)" ns="quadrotor1" >
+    <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
+      <arg name="name" value="quadrotor1"    />
+      <arg name="model" value="$(arg model)" />
+      <arg name="x" value="-1"               />
+      <arg name="y" value="0"                />
+      <arg name="z" value="0.3"              />
+    </include>
   </group>
 
-
-  <!-- Projected 2D Maps -->
-  <node pkg="ogm_ae" name="generate_exploration_collision_entropy_comb_map"   type="generate_exploration_map" output="screen">
-    <param name="map_goal" value="collision"/>
-  </node>
-  <!-- node pkg="ogm_ae" name="generate_exploration_map_entropy"   type="generate_exploration_map" output="screen">
-    <param name="map_goal" value="entropy"  />
-  </node>
-  <node pkg="ogm_ae" name="generate_exploration_map_collision" type="generate_exploration_map" output="screen">
-    <param name="map_goal" value="collision"/>
-  </node -->
+  <!-- 5) Projected 2D Maps -->
+  <group unless="$(arg two_exploration_maps)" >
+    <node pkg="ogm_ae" type="generate_exploration_map" output="screen"
+          name="generate_exploration_collision_entropy_comb_map" >
+      <param name="map_goal" value="collision" />
+    </node>
+  </group>
+  <group if="$(arg two_exploration_maps)"     >
+    <node pkg="ogm_ae" type="generate_exploration_map" output="screen"
+          name="generate_exploration_map_entropy"                >
+      <param name="map_goal" value="entropy"   />
+    </node>
+    <node pkg="ogm_ae" type="generate_exploration_map" output="screen"
+          name="generate_exploration_map_collision"              >
+      <param name="map_goal" value="collision" />
+    </node>
+  </group>
 
   <!-- Set Robot Model States -->
-  <node pkg="ogm_ae" name="paths_to_cmd_0" type="paths_to_cmd" output="screen">
+  <node pkg="ogm_ae" name="paths_to_cmd_0" type="paths_to_cmd" output="screen"                           >
     <param name="model_name"   value="quadrotor0"                         />
     <param name="robot_frame"  value="quadrotor0/base_link"               />
     <param name="sensor_frame" value="quadrotor0/camera_rgb_optical_frame"/>
   </node>
-  <node pkg="ogm_ae" name="paths_to_cmd_1" type="paths_to_cmd" output="screen">
+  <node pkg="ogm_ae" name="paths_to_cmd_1" type="paths_to_cmd" output="screen" if="$(arg two_quadrotors)">
     <param name="model_name"   value="quadrotor1"                         />
     <param name="robot_frame"  value="quadrotor1/base_link"               />
     <param name="sensor_frame" value="quadrotor1/camera_rgb_optical_frame"/>
   </node>
+
 </launch>
