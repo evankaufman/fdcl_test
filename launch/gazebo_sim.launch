@@ -75,12 +75,10 @@
 
   <!-- Set Robot Model States -->
   <node pkg="ogm_ae" name="paths_to_cmd_0" type="paths_to_cmd" output="screen"                           >
-    <param name="robot_number" value="0"                                  />
-    <param name="sensor_frame" value="quadrotor0/camera_rgb_optical_frame"/>
+    <param name="robot_number" value="0" />
   </node>
   <node pkg="ogm_ae" name="paths_to_cmd_1" type="paths_to_cmd" output="screen" if="$(arg two_quadrotors)">
-    <param name="robot_number" value="1"                                  />
-    <param name="sensor_frame" value="quadrotor1/camera_rgb_optical_frame"/>
+    <param name="robot_number" value="1" />
   </node>
 
 </launch>
