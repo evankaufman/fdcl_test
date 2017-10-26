@@ -3,7 +3,7 @@
 <launch>
 
 
-  <arg   name="two_quadrotors" value="true"/>
+  <arg   name="two_quadrotors" value="false"/>
 
   <!-- (Re)Load Parameters -->
   <rosparam command="load" file="$(find ogm_ae)/config/robots.yaml"      />
