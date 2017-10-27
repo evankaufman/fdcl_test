@@ -2,8 +2,9 @@
 
 <launch>
 
-  <node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/gazebo_coll.rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/test_namespaces.rviz"/>
+  <!-- node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/gazebo_coll.rviz"/>
   <node pkg="rviz" type="rviz" name="rviz_entr" args="-d $(find ogm_ae)/rviz/gazebo_entropy.rviz"/>
-  <node pkg="rviz" type="rviz" name="rviz_cell" args="-d $(find ogm_ae)/rviz/gazebo_3Dcells.rviz"/>
+  <node pkg="rviz" type="rviz" name="rviz_cell" args="-d $(find ogm_ae)/rviz/gazebo_3Dcells.rviz"/ -->
 
 </launch>
