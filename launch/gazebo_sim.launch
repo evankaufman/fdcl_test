@@ -13,7 +13,7 @@
   -->
 
   <!-- 1) Set the Number of Quadrotors & Exploration Strategy-->
-  <arg   name="two_quadrotors" value="false"                            />
+  <arg   name="two_quadrotors" value="true"                            />
   <param name="num_robots"     value="1" unless="$(arg two_quadrotors)" />
   <param name="num_robots"     value="2" if    ="$(arg two_quadrotors)" />
   <arg   name="two_exploration_maps"          value="false"                                             />

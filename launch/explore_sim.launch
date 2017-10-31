@@ -6,7 +6,6 @@
   <rosparam command="load" file="$(find ogm_ae)/config/maps_gazebo.yaml"   />
   <rosparam command="load" file="$(find ogm_ae)/config/exploration.yaml"   />
   <rosparam command="load" file="$(find ogm_ae)/config/depth_sensors.yaml" />
-  <param name="exploration/robot_frame"     value="base_link" />
   <param name="run_autonomous_exploration"  value="true"      />
 
   <!-- Entropy-Based Autonomous Exploration -->
