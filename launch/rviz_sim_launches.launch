@@ -7,4 +7,8 @@
   <node pkg="rviz" type="rviz" name="rviz_entr" args="-d $(find ogm_ae)/rviz/gazebo_entropy.rviz"/>
   <node pkg="rviz" type="rviz" name="rviz_cell" args="-d $(find ogm_ae)/rviz/gazebo_3Dcells.rviz"/ -->
 
+  <param name="robot_description_red"  command="cat $(find ogm_ae)/robot_description/urdf/robot_red.xml"  />
+  <param name="robot_description_blue" command="cat $(find ogm_ae)/robot_description/urdf/robot_blue.xml" />
+
+
 </launch>
