@@ -1,0 +1,11 @@
+<launch>
+
+<node pkg="tf" type="static_transform_publisher" name="camera_link_to_camera_rgb_frame" args="0.0 -0.045 0.0 0.0 0.0 0.0 1.0 /camera_link /camera_rgb_frame 10" />
+
+<node pkg="tf" type="static_transform_publisher" name="camera_link_to_camera_depth_frame" args="0.0 -0.02 0.0 0.0 0.0 0.0 1.0 /camera_link /camera_depth_frame 10" />
+
+<node pkg="tf" type="static_transform_publisher" name="camera_rgb_frame_to_camera_rgb_optical_frame" args="0.0 0.0 0.0 -0.5 0.5 -0.5 0.5 /camera_rgb_frame /camera_rgb_optical_frame 10" />
+
+<node pkg="tf" type="static_transform_publisher" name="camera_depth_frame_to_camera_depth_optical_frame" args="0.0 0.0 0.0 -0.5 0.5 -0.5 0.5 /camera_depth_frame /camera_depth_optical_frame 10" />
+
+</launch>

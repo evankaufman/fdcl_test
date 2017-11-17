@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+
+<node pkg="tf" type="static_transform_publisher" name="base_link_to_ideal_camera_direction" args="0 0 -0.07 0 0 0.383 0.924 /base_link /ideal_camera_link 10" />
+
+<node pkg="tf" type="static_transform_publisher" name="ideal_camera_direction_to_slanted_camera_direction" args="0.03 0 0 0 0 -0.013 1.000 /ideal_camera_link /slanted_camera_link 10" />
+
+<!-- node pkg="tf" type="static_transform_publisher" name="slanted_camera_direction_to_true_camera_direction" args="0.0 0 0 0 0.04 0 0.99 /slanted_camera_link /camera_link 10" / -->
+<node pkg="tf" type="static_transform_publisher" name="slanted_camera_direction_to_true_camera_direction" args="0.0 0 0 0 0.0 0 1.0 /slanted_camera_link /camera_link 10" />
+
+<node pkg="tf" type="static_transform_publisher" name="ideal_camera_link_to_Hokuyo" args="-0.03 0 -0.08 1 0 0 0 /ideal_camera_link /laser 10" />
+
+</launch>
