@@ -79,10 +79,6 @@
   <node pkg="ogm_ae" name="probabilistic_occupancy_grid_mapping" type="probabilistic_occupancy_grid_mapping" output="screen" ></node>
 
 
-  <!-- Visualization -->
-  <node pkg="ogm_ae" name="generate_3D_rviz_msgs" type="generate_3D_rviz_msgs" output="screen" />
-
-
   <!-- Initial Yaw Rototation -->
   <param name="do_yaw_rotation" type="bool" value="true" />
 

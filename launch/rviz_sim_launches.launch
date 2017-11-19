@@ -2,13 +2,14 @@
 
 <launch>
 
+  <!-- RViz -->
   <node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/test_namespaces.rviz"/>
-  <!-- node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/gazebo_coll.rviz"/>
-  <node pkg="rviz" type="rviz" name="rviz_entr" args="-d $(find ogm_ae)/rviz/gazebo_entropy.rviz"/>
-  <node pkg="rviz" type="rviz" name="rviz_cell" args="-d $(find ogm_ae)/rviz/gazebo_3Dcells.rviz"/ -->
 
+  <!-- Robot Colors -->
   <param name="robot_description_red"  command="cat $(find ogm_ae)/robot_description/urdf/robot_red.xml"  />
   <param name="robot_description_blue" command="cat $(find ogm_ae)/robot_description/urdf/robot_blue.xml" />
 
+  <!-- Map Cell Conversion for Visualization -->
+  <node pkg="ogm_ae" name="generate_3D_rviz_msgs" type="generate_3D_rviz_msgs" output="screen" />
 
 </launch>
