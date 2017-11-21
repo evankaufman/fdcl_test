@@ -6,8 +6,8 @@
   <node pkg="rviz" type="rviz" name="rviz_coll" args="-d $(find ogm_ae)/rviz/test_namespaces.rviz"/>
 
   <!-- Robot Colors -->
-  <param name="robot_description_red"  command="cat $(find ogm_ae)/robot_description/urdf/robot_red.xml"  />
-  <param name="robot_description_blue" command="cat $(find ogm_ae)/robot_description/urdf/robot_blue.xml" />
+  <param name="robot_description_red"  command="cat $(find fdcl_test)/robot_description/visual/robot_red.xml"  />
+  <param name="robot_description_blue" command="cat $(find fdcl_test)/robot_description/visual/robot_blue.xml" />
 
   <!-- Map Cell Conversion for Visualization -->
   <node pkg="ogm_ae" name="generate_3D_rviz_msgs" type="generate_3D_rviz_msgs" output="screen" />
