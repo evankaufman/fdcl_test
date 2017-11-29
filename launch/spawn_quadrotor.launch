@@ -35,7 +35,7 @@
   <param name="world_frame" type="string" value="$(arg world_frame)" />
 
   <!-- start robot state publisher -->
-  <!-- <param name="robot_description" command="$(arg model)" /> -->
+  <param name="evan" type="string" value="$(arg model)" />
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="$(anon robot_state_publisher)" output="screen" >
     <param name="publish_frequency" type="double" value="50.0" />
