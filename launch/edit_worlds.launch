@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+
+  <include file="$(find fdcl_test)/launch/start.launch" >
+    <!--arg name="world" value="$(find fdcl_test)/worlds/lasr_no_quad.world" / -->
+    <arg name="world" value="$(find fdcl_test)/worlds/double_doors.world" />
+  </include>
+
+</launch>
