@@ -1,0 +1,7 @@
+mapping:
+  x_map_min:  -50
+  x_map_max:  50
+  y_map_min:  -50
+  y_map_max:  60
+  z_map_min:  0.0
+  z_map_max:  1.5

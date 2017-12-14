@@ -12,10 +12,18 @@
     6) Sets Gazebo robot model states
   -->
 
-  <!-- 1) Set the Number of Quadrotors & Exploration Strategy-->
-  <arg   name="two_quadrotors" value="true"                            />
+  <!-- 1) Set the Number of Quadrotors, Environment, & Exploration Strategy-->
+  <arg name="two_quadrotors" value="true"/>
+
   <param name="num_robots"     value="1" unless="$(arg two_quadrotors)" />
   <param name="num_robots"     value="2" if    ="$(arg two_quadrotors)" />
+
+  <arg name="simple_small"               value="false"/>
+  <arg name="SEH_double_doors_open_only" value="true"/>
+
+  <arg name="world_name" value="simple_small"               if="$(arg simple_small)"              />
+  <arg name="world_name" value="SEH_double_doors_open_only" if="$(arg SEH_double_doors_open_only)"/>
+
   <arg   name="two_exploration_maps"          value="false"                                             />
   <param name="exploration/cell_comb_process" value="min_max"      unless="$(arg two_exploration_maps)" />
   <param name="exploration/cell_comb_process" value="free_entropy" if    ="$(arg two_exploration_maps)" />
@@ -25,14 +33,17 @@
   <rosparam command="load" file="$(find ogm_ae)/config/maps_gazebo.yaml" />
   <rosparam command="load" file="$(find ogm_ae)/config/exploration.yaml" />
   <rosparam command="load" file="$(find ogm_ae)/config/sensors.yaml"     />
+
+  <rosparam command="load" file="$(find fdcl_test)/config/map_limits_simple_small.yaml"               if="$(arg simple_small)"              />
+  <rosparam command="load" file="$(find fdcl_test)/config/map_limits_SEH_double_doors_open_only.yaml" if="$(arg SEH_double_doors_open_only)"/>
+
   <param name="use_sim_time"                value="true" />
   <param name="run_autonomous_exploration"  value="true" />
   <param name="exploration/simulate_gazebo" value="true" />
 
   <!-- 3) Start Gazebo with 'simple_world' Environment -->
   <include file="$(find fdcl_test)/launch/start.launch" >
-    <!--arg name="world" value="$(find fdcl_test)/worlds/lasr_no_quad.world" / -->
-    <arg name="world" value="$(find fdcl_test)/worlds/multivehicle_course.world" />
+    <arg name="world" value="$(find fdcl_test)/worlds/$(arg world_name).world" />
   </include>
 
   <!-- 4) Spawn Simulated Quadrotor UAVs -->
@@ -41,22 +52,22 @@
     <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
       <arg name="name" value="quadrotor0"    />
       <arg name="model" value="$(arg model)" />
-      <!--arg name="x" value="1"                / -->
-      <!--arg name="y" value="0"                / -->
-      <arg name="x" value="30"                />
-      <arg name="y" value="30"                />
-      <arg name="z" value="0.3"              />
+      <arg name="x" value="1"   if="$(arg simple_small)"              />
+      <arg name="y" value="0"   if="$(arg simple_small)"              />
+      <arg name="x" value="10"  if="$(arg SEH_double_doors_open_only)"/>
+      <arg name="y" value="-45" if="$(arg SEH_double_doors_open_only)"/>
+      <arg name="z" value="0.3"                                       />
     </include>
   </group>
   <group if="$(arg two_quadrotors)" ns="quadrotor1" >
     <include file="$(find fdcl_test)/launch/spawn_quadrotor.launch" >
       <arg name="name" value="quadrotor1"    />
       <arg name="model" value="$(arg model)" />
-      <!--arg name="x" value="-1"               / -->
-      <!--arg name="y" value="0"                / -->
-      <arg name="x" value="45"               />
-      <arg name="y" value="45"                />
-      <arg name="z" value="0.3"              />
+      <arg name="x" value="-1"  if="$(arg simple_small)"              />
+      <arg name="y" value="0"   if="$(arg simple_small)"              />
+      <arg name="x" value="30"  if="$(arg SEH_double_doors_open_only)"/>
+      <arg name="y" value="25"  if="$(arg SEH_double_doors_open_only)"/>
+      <arg name="z" value="0.3"                                       />
     </include>
   </group>
 
